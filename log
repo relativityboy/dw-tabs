@@ -1,0 +1,27 @@
+ToDo:
+Write a user-guide
+Make a 'bootstrap' flavored example
+Implement tests
+
+Done:
+2016.04.03
+* gulpified
+* added dependency managment for examples & build with npm
+* added basic bootstrap example
+
+2016.03.27
+* Put in Github
+* Add hasTarget
+* Add onShow function call (to easily inform routers)
+* Add destroy & cleanup
+* Add default active
+* Add instance into dom element data attribute
+* Add show method
+* Need to tidy the code a little more
+* Add prevent default
+
+2016.03.26
+* support on-the-fly addition of dom tabs and content containers
+* add 'dw' prefix to data elements
+* initial plugin
+* get un-bored

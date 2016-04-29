@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DWTabs Example 1</title>
+
+  <!-- the css in here pretties things up a bit, but it's not necessary for showing/hiding tabs -->
+  <link rel="stylesheet" href="css/example_1.css">
+  <!-- begin: includes you need -->
+  <script src="js/jquery.min.js"></script>
+  <script src="../dist/js/dw-tabs.js"></script>
+  <!-- end: includes you need -->
+
+  <!-- begin:code you need -->
+  <script>
+    $(document).ready(function() {
+      $('.w-navbar').dwTabs('.w-navcontent');
+    });
+  </script>
+  <style type="text/css">
+    .tab-content {
+      display:none;
+    }
+
+    .tab-content.active {
+      display:block;
+    }
+    .nav-bar li.active {
+      background:lightblue;
+    }
+  </style>
+  <!-- end:code you need -->
+</head>
+<body>
+<h2>Example 1. First things first. </h2>
+  <ul class="w-navbar nav-bar">
+    <li class="w-dwtab active" data-dwtarget="description"><a href="#">Description</a></li>
+    <li class="w-dwtab" data-dwtarget="asciiart"><a href="#">Ascii Art</a></li>
+    <li class="w-dwtab" data-dwtarget="circle"><a href="#">Circle</a></li>
+    <li class="w-dwtab" data-dwtarget="veganipsum"><a href="#">Vegan Ipsum</a></li>
+  </ul>
+  <div class="w-navcontent nav-content">
+    <div class="w-dwcontent tab-content active" data-dwtarget="description">
+      <p>This is the simplest example of dwTabs. It uses all the defaults. The library provides.</p>
+      <p>dwTabs aims to provide a low cost, maximum freedom plugin. You can make your tab-navigation and your tab-content with whatever elements you like.
+      You can even mix and match element types (one of the tab-content items in this example is not a div)</p>
+      <p>You can add tabs and content on-the-fly with no need to re initialize the tabs, and show content programatically.</p>
+      <p>All you need (if you're using the defaults as in this example) is to
+        <ol>
+          <li>add the 'w-dwtab' class and the 'data-dwtarget' attribute to your tab elements. <i>i</i></li>
+          <li>add the 'w-dwcontent' class and the 'data-dwtarget' attribute to your content elements <i>i</i></li>
+          <li>add the 'active' class to the tab/content elements you want to have show up first. <i>ii</i></li>
+          <li>call <code>$('.w-navbar').dwTabs('.w-navcontent');</code> like in the example above</li>
+        </ol>
+      </p>
+
+      <ul class="footnotes">
+        <li>the value of 'data-dwtarget' match in the tab/content elements needs to match for corresponding tabs/content</li>
+        <li>If you haven't already, add some css like in the head of this document to show+highlight the content+tab that are 'active'</li>
+        <li>It is not recommended that you apply css styling to classes beginning with 'w-'. 'w-' classes are reserved for web-application behavior attachment.</li>
+      </ul>
+    </div>
+    <div class="w-dwcontent tab-content" data-dwtarget="circle">
+      A nice green circle:
+      <svg id="circle" height="200" xmlns="http://www.w3.org/2000/svg">
+        <circle id="greencircle" cx="30" cy="30" r="30" fill="green" />
+      </svg>
+
+      <hr>
+      <address>Created by DKS. This is free code</address>
+    </div>
+    <pre class="w-dwcontent tab-content" data-dwtarget="asciiart">
+      .____    .__  _____        .__                                      .__
+      |    |   |__|/ ____\____   |__| ______ _____    _____ _____  _______|__| ____    ____
+      |    |   |  \   __\/ __ \  |  |/  ___/ \__  \  /     \\__  \ \___   /  |/    \  / ___\
+      |    |___|  ||  | \  ___/  |  |\___ \   / __ \|  Y Y  \/ __ \_/    /|  |   |  \/ /_/  &gt;
+      |_______ \__||__|  \___  &gt; |__/____  &gt; (____  /__|_|  (____  /_____ \__|___|  /\___  /
+      \/             \/          \/       \/      \/     \/      \/       \//_____/
+    </pre>
+    <div class="w-dwcontent tab-content" data-dwtarget="veganipsum">
+      <p>
+        Fiddlehead pignut sierra leone bologi sweet potato or kumara cardoon, parsnip; fat hen, pignut pak choy cardoon. Spring Onion garbanzo water spinach celery, mooli manioc. Bamboo shoot prairie turnip garbanzo, american groundnut; swede chinese mallow; pigeon pea. Epazote cauliflower scallion asparagus collard greens water chestnut. Chinese cabbage florence fennel swede salsify.
+      </p><p>
+        Skirret jerusalem artichoke, polk eggplant winter melon. Burdock chinese cabbage burdock bamboo shoot melokhia?
+      </p>
+    </div>
+  </div>
+</body>
+</html>
