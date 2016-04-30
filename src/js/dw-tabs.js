@@ -6,6 +6,8 @@
     showFirst:'', //
     onShow:false, //if this is
     activeClass:'active', // <-- defaults to active
+    router:false,
+    routerEvents:{},
     contentSelector:'.w-dwcontent', //
     contentIsChild:false, //true if the content elements are children of the main element found by jQuery
     preventDefault:true, //if true, prevents the default action from happening
@@ -17,8 +19,8 @@
     this.opts = opts;
     this.$tabNav = $tabNav;
     this.$tabContent = contentContainer;
+    this.listeners = {all:[]};
 
-    this.router = false;
     this.show = $.proxy(this.show, this);
     this.destroy = $.proxy(this.destroy, this);
     this.hasTarget = $.proxy(this.hasTarget, this);
@@ -37,15 +39,25 @@
     if(this.opts.showFirst.length > 0) {
       this.show(this.opts.showFirst);
     }
+    if(this.opts.router) {
+      if($.isEmptyObject(this.opts.routerEvents)) {
+        this.setRouter(this.opts.router);
+      } else {
+        this.setRouter(this.opts.router, this.opts.routerEvents);
+      }
+    }
   };
 
   DWTabs.prototype.setRouter = function(router, events) {
     var self = this;
-    this.router = router;
+    if(this.opts.router && this.opts.router !== router) {
+      console.log('dwTabs:Warning! Setting a router more than once is not supported and may have unintended side effects. Instance attached to:', this.$tabNav[0]);
+    }
+    this.opts.router = router;
 
     this.routerEvents = {};
     this.routerMappedEvents = {};
-    this.listeners = {all:[]};
+
     switch(typeof events) {
       case 'string' :
         this.routerEvents[events] = this.show;
@@ -66,13 +78,13 @@
           self.routerMappedEvents[event] = function(val) {
             self.show(action(val));
           };
-          self.router.on(event, self.routerMappedEvents[event]);
+          self.opts.router.on(event, self.routerMappedEvents[event]);
           break;
         case 'string' :
-          self.routerMappedEvents[event] =  function() {
+          self.opts.routerMappedEvents[event] =  function() {
             self.show(action);
           };
-          self.router.on(event,self.routerMappedEvents[event]);
+          self.opts.router.on(event,self.routerMappedEvents[event]);
       }
     });
     return this;
@@ -102,9 +114,11 @@
   }
   
   DWTabs.prototype.trigger = function(eventName, arg) {
-    $.each(this.listeners[eventName], function(i, fn) {
-      fn(arg, eventName, this);
-    });
+    if(this.listeners.hasOwnProperty(eventName)) {
+      $.each(this.listeners[eventName], function (i, fn) {
+        fn(arg, eventName, this);
+      });
+    }
     $.each(this.listeners.all, function(i, fn) {
       fn(arg, eventName, this);
     });
@@ -133,7 +147,7 @@
     if(typeof this.opts.onShow === 'function') {
       this.opts.onShow(targetName, e);
     } 
-    this.trigger(targetName, e);
+    this.trigger('show:' + targetName, e);
     return this;
   };
 
@@ -157,15 +171,22 @@
     var self = this;
     this.$tabNav.off('click', this.opts.navSelector, this.show);
     this.$tabNav.removeData('dwTab');
-    if(this.router && this.router.off) {
+    if(this.opts.router && this.opts.router.off) {
       $.each(this.routerMappedEvents, function(key, fn) {
-        self.router.off(key, fn)
+        self.opts.router.off(key, fn)
       });
     }
   };
 
+  /**
+   *
+   * @param containerOrCommand - commands: show,destroy,setGlobalDefaults,get - container:the container for tab content
+   * @param options
+   * @returns {*}
+   */
   $.fn.dwTabs = function(containerOrCommand, options) {
     var opts = $.extend({}, defaults, options);
+    //all cases except for 'default' assumed containerOrCommand is a command
     switch(containerOrCommand) {
       case 'show' :
         this.each(function() {
@@ -183,9 +204,13 @@
           }
         });
         break;
-      case 'setDefaults' :
+      case 'setGlobalDefaults' :
         defaults = $.extend({}, defaults, options);
-        return null;
+        break;
+      case 'get' :
+        return $(this[0]).data('dwTab');
+      case 'setRouter' :
+        throw new Error('setRouter is not yet supported. assign it by calling $(<yourelement>).dwTabs(\'get\').setRouter(<router>, etc)')
         break;
       default : //create dwTab instances
         this.each(function() {
