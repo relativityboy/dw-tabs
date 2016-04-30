@@ -14,6 +14,7 @@ At it's minimum, all you need is a container for your tabs, a container for
 your content, and a line of javascript - $('.w-navbar').dwTabs('.w-navcontent');
 
 dw-tabs does web-tabbing the right way.
+
 * javascript access & control of all your tabs (if you want it)
 * chaining
 * automatic recognition of new tabs (you can add/remove tab html on the fly)
@@ -33,6 +34,7 @@ dw-tabs does web-tabbing the right way.
 * requirejs aware (coming soon)
 
 The Examples are a work in progress. Those with a !! at the beginning aren't done or don't exist yet.
+
 1. Is the simplest use of tabs I could think of. Essentially a one-liner (assuming you have your html written)
 2. Uses Bootstrap tab styles to show compatibility & ease of use with layout systems.
 3. !!Here we let you add html for tabs dynamically and watch dwTabs handle them with grace
