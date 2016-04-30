@@ -13,8 +13,32 @@
 
   <!-- begin:code you need -->
   <script>
+    //initialize the tabs
     $(document).ready(function() {
       $('.w-navbar').dwTabs('.w-navcontent');
+      $('.w-newTabCode').text($('#addTabCode').html());
+    });
+
+  </script>
+  <script id="addTabCode">
+    /**
+     * Adding new tab code.
+     * I've made variable declarations and templates as accessible as possible. & kept dependencies low for clarity.
+     */
+    $(document).ready(function() {
+      var tplTab = $('#tabTemplate').html(), //template for the tab html
+          tplTabContent = $('#tabContentTemplate').html(), //template for the content html
+          $newTabName = $('.w-atr-newTabName:first'), //the input element where you put the tab name
+          $newTabBtn = $('.w-ctrl-newTab:first'), //button to trigger adding the new tab
+          $tabRoot = $('.w-navbar:first'), //the container for the tabs
+          $tabContentRoot = $('.w-navcontent:first'); //the container for the tab content
+
+      //new tab is added here. Notice that this code doesn't know about dwTabs at all. It just inserts html into the dom
+      $newTabBtn.on("click", function() {
+        $tabRoot.append(tplTab.replace(/{tabName}/g, $newTabName.val()));
+        $tabContentRoot.append(tplTabContent.replace(/{tabName}/g, $newTabName.val()));
+        });
+
     });
   </script>
   <style type="text/css">
@@ -32,8 +56,18 @@
   <!-- end:code you need -->
 </head>
 <body>
-<h2>Example 3. Bootstrap Tabs</h2>
-
+<h2>Example 3. Adding tabs dynamically</h2>
+<div class="container-fluid">
+  <div class="row">
+    <div class="input-group col-xs-12 col-md-6">
+      <span class="input-group-addon">Add a tab:</span>
+      <input type="text" class="form-control w-atr-newTabName" placeholder="Tab name">
+    <span class="input-group-btn">
+      <button type="button" class="btn btn-primary w-ctrl-newTab">add</button>
+    </span>
+    </div>
+  </div>
+</div>
 <ul class="w-navbar nav nav-tabs" role="tablist">
   <li class="w-dwtab" data-dwtarget="description" role="presentation" class=""><a href="#" aria-controls="home" role="tab" data-toggle="tab">Description</a></li>
   <li class="w-dwtab" data-dwtarget="asciiart" role="presentation"><a href="#" aria-controls="profile" role="tab" data-toggle="tab">Ascii Art</a></li>
@@ -43,22 +77,12 @@
 <div class="w-navcontent container-fluid">
   <div class="w-dwcontent panel active" data-dwtarget="description">
     <div class="panel-body">
-      <p>In this example we use all DW-Tabs defaults, <strong>but we use Bootstrap HTML & CSS</strong></p>
-      <p>Note, as in Example 1....</p>
-      <p>All you need (if you're using the defaults) is to
-      <ol>
-        <li>add the 'w-dwtab' class and the 'data-dwtarget' attribute to your tab elements. <i>i</i></li>
-        <li>add the 'w-dwcontent' class and the 'data-dwtarget' attribute to your content elements <i>i</i></li>
-        <li>add the 'active' class to the tab/content elements you want to have show up first. <i>ii</i></li>
-        <li>call <code>$('.w-navbar').dwTabs('.w-navcontent');</code> like in the example above</li>
-      </ol>
-      </p>
-
-      <ul class="footnotes">
-        <li>the value of 'data-dwtarget' match in the tab/content elements needs to match for corresponding tabs/content</li>
-        <li>If you haven't already, add some css like in the head of this document to show+highlight the content+tab that are 'active'</li>
-        <li>It is not recommended that you apply css styling to classes beginning with 'w-'. 'w-' classes are reserved for web-application behavior attachment.</li>
-      </ul>
+      <p>In this example we're still using all DW-Tabs defaults</p>
+      <p>To add a new tab, just type the name of your new tab in the box and click the 'add' button.
+        The name you type will be used for the tab text, target text, and content.
+        I've included the code that does the addition below. The templates are at the bottom of the page source if you
+      need to take a closer look.</p>
+      <pre class="w-newTabCode"></pre>
     </div>
   </div>
   <div class="w-dwcontent panel" data-dwtarget="circle">
@@ -94,5 +118,17 @@
     </div>
   </div>
 </div>
+<script id="tabTemplate" type="text/html">
+  <li class="w-dwtab" data-dwtarget="{tabName}" role="presentation"><a href="#" role="tab" data-toggle="tab">{tabName}</a></li>
+</script>
+<script id="tabContentTemplate" type="text/html">
+  <div class="w-dwcontent panel" data-dwtarget="{tabName}">
+    <div class="panel-body">
+        <pre>
+          This is the content for tab - {tabName}
+        </pre>
+    </div>
+  </div>
+</script>
 </body>
 </html>
