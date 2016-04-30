@@ -38,5 +38,5 @@ The Examples are a work in progress. Those with a !! at the beginning aren't don
 1. Is the simplest use of tabs I could think of. Essentially a one-liner (assuming you have your html written)
 2. Uses Bootstrap tab styles to show compatibility & ease of use with layout systems.
 3. Here we let you add html for tabs dynamically and watch dwTabs handle them with grace
-4. !!We provide a select element and choose which tabs to show programatically
+4. We provide a select element and choose which tabs to show programatically
 5. !!A simple router example using links in a sidebar to change tabs;

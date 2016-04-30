@@ -14,13 +14,14 @@
     navSurfParents:true //if true, nav will surf 'up' the parent tree useful for bootstrap styled tabs
   };
 
+
   var DWTabs = function($tabNav, contentContainer, opts) {
     $tabNav.data('dwTab', this);
     this.opts = opts;
     this.$tabNav = $tabNav;
     this.$tabContent = contentContainer;
     this.listeners = {all:[]};
-
+    console.log('DWTabs:new', this.$tabNav)
     this.show = $.proxy(this.show, this);
     this.destroy = $.proxy(this.destroy, this);
     this.hasTarget = $.proxy(this.hasTarget, this);
@@ -126,6 +127,7 @@
   }
 
   DWTabs.prototype.show = function(e) {
+
     var targetName;
     if(typeof e === 'object') {
       if(this.opts.preventDefault) {

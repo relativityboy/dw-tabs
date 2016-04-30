@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>DWTabs Example 3</title>
+  <title>DWTabs Example 4</title>
 
   <!-- the css in here pretties things up a bit, but it's not necessary for showing/hiding tabs -->
   <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -22,23 +22,12 @@
   </script>
   <script id="exampleTabCode">
     /**
-     * Adding new tab code.
-     * I've made variable declarations and templates as accessible as possible. & kept dependencies low for clarity.
+     * Switching tabs programatically.
      */
     $(document).ready(function() {
-      var tplTab = $('#tabTemplate').html(), //template for the tab html
-          tplTabContent = $('#tabContentTemplate').html(), //template for the content html
-          $newTabName = $('.w-atr-newTabName:first'), //the input element where you put the tab name
-          $newTabBtn = $('.w-ctrl-newTab:first'), //button to trigger adding the new tab
-          $tabRoot = $('.w-navbar:first'), //the container for the tabs
-          $tabContentRoot = $('.w-navcontent:first'); //the container for the tab content
-
-      //new tab is added here. Notice that this code doesn't know about dwTabs at all. It just inserts html into the dom
-      $newTabBtn.on("click", function() {
-        $tabRoot.append(tplTab.replace(/{tabName}/g, $newTabName.val()));
-        $tabContentRoot.append(tplTabContent.replace(/{tabName}/g, $newTabName.val()));
-        });
-
+      $('.w-ctrl-showTab').on("change", function() { //bind our on-click handler.
+        $('.w-navbar').dwTabs('show', $(this).val()); //get dwTabs from the dom and pass it a value.
+      });
     });
   </script>
   <style type="text/css">
@@ -56,15 +45,18 @@
   <!-- end:code you need -->
 </head>
 <body>
-<h2>Example 3. Adding tabs dynamically</h2>
+<h2>Example 4. Switching tabs programatically</h2>
 <div class="container-fluid">
   <div class="row">
-    <div class="input-group col-xs-12 col-md-6">
-      <span class="input-group-addon">Add a tab:</span>
-      <input type="text" class="form-control w-atr-newTabName" placeholder="Tab name">
-    <span class="input-group-btn">
-      <button type="button" class="btn btn-primary w-ctrl-newTab">add</button>
-    </span>
+    <div class="form-group col-xs-6 col-sm-6 col-lg-3">
+      <select class="w-ctrl-showTab form-control">
+        <option>description</option>
+        <option>asciiart</option>
+        <option>circle</option>
+        <option>veganipsum</option>
+        <option>content without tab</option>
+        <option>non-existent tab</option>
+      </select>
     </div>
   </div>
 </div>
@@ -77,11 +69,9 @@
 <div class="w-navcontent container-fluid">
   <div class="w-dwcontent panel active" data-dwtarget="description">
     <div class="panel-body">
-      <p>In this example we're still using all DW-Tabs defaults</p>
-      <p>To add a new tab, just type the name of your new tab in the box and click the 'add' button.
-        The name you type will be used for the tab text, target text, and content.
-        I've included the code that does the addition below. The templates are at the bottom of the page source if you
-      need to take a closer look.</p>
+      <p>A simple example to show you how to switch tabs in Javascript.</p>
+      <p>Choose a tab name from the dropdown above to switch to it. Obviously the tabs themselves update, and work as expected. You can see from the code below, we get the dwTabs instance directly from the dom (though you could easily cache it in a variable if you wanted).</p>
+      <p><strong>Bonus:</strong> There are 2 extra items in the select list, one is 'headless' content (doesn't have a tab), and the other will show you what happens when you pass in an invalid tab name.</p>
       <pre class="w-exampleTabCode"></pre>
     </div>
   </div>
@@ -108,6 +98,13 @@
         </pre>
     </div>
   </div>
+  <div class="w-dwcontent panel" data-dwtarget="content without tab">
+    <div class="panel-body">
+        <pre>
+          This is tab content without a tab!
+        </pre>
+    </div>
+  </div>
   <div class="w-dwcontent panel" data-dwtarget="veganipsum">
     <div class="panel-body">
       <p>
@@ -118,17 +115,5 @@
     </div>
   </div>
 </div>
-<script id="tabTemplate" type="text/html">
-  <li class="w-dwtab" data-dwtarget="{tabName}" role="presentation"><a href="#" role="tab" data-toggle="tab">{tabName}</a></li>
-</script>
-<script id="tabContentTemplate" type="text/html">
-  <div class="w-dwcontent panel" data-dwtarget="{tabName}">
-    <div class="panel-body">
-        <pre>
-          This is the content for tab - {tabName}
-        </pre>
-    </div>
-  </div>
-</script>
 </body>
 </html>

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>DWTabs Example 2</title>
+  <title>DWTabs Example 3</title>
 
   <!-- the css in here pretties things up a bit, but it's not necessary for showing/hiding tabs -->
   <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -16,11 +16,11 @@
     //initialize the tabs
     $(document).ready(function() {
       $('.w-navbar').dwTabs('.w-navcontent');
-      $('.w-newTabCode').text($('#addTabCode').html());
+      $('.w-exampleTabCode').text($('#exampleTabCode').html());
     });
 
   </script>
-  <script id="addTabCode">
+  <script id="exampleTabCode">
     /**
      * Adding new tab code.
      * I've made variable declarations and templates as accessible as possible. & kept dependencies low for clarity.
@@ -82,7 +82,7 @@
         The name you type will be used for the tab text, target text, and content.
         I've included the code that does the addition below. The templates are at the bottom of the page source if you
       need to take a closer look.</p>
-      <pre class="w-newTabCode"></pre>
+      <pre class="w-exampleTabCode"></pre>
     </div>
   </div>
   <div class="w-dwcontent panel" data-dwtarget="circle">
