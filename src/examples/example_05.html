@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>DWTabs Example 5</title>
+
+  <!-- the css in here pretties things up a bit, but it's not necessary for showing/hiding tabs -->
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <!-- begin: includes you need -->
+  <script src="js/jquery.min.js"></script>
+  <script src="../dist/js/dw-tabs.js"></script>
+  <!-- end: includes you need -->
+
+  <!-- begin:code you need -->
+  <script>
+    $(document).ready(function() {
+      $('.w-exampleTabCode').text($('#exampleTabCode').html());
+    });
+  </script>
+  <script id="exampleTabCode">
+    /**
+     * In this example we create an options object with and 'onShow' function that will be called every time a tab is
+     * clicked. It is passed the name of the tab, and the tab dom element $(el)
+     */
+    $(document).ready(function() {
+      var options =  {
+        showFirst:'description',
+        onShow:function(tabName, $el) {
+          console.log(tabName, $el); //if you open your console, you can see the tag-name and the $(el) tab (or string, if called programatically)
+          $('.w-atr-tabName').val(tabName) //set the name of the tab in the input so you can see it.
+          //your code here??? ;-)
+        }
+      };
+
+      //initialize the tabs
+      $('.w-navbar').dwTabs('.w-navcontent', options);
+    });
+  </script>
+  <style type="text/css">
+    .panel {
+      display:none;
+    }
+
+    .panel.active {
+      display:block;
+    }
+    .nav-bar li.active {
+      background:lightblue;
+    }
+  </style>
+  <!-- end:code you need -->
+</head>
+<body>
+<h2>Example 5. The options object and 'onShow' event binding</h2>
+<div class="container-fluid">
+  <div class="row">
+    <div class="form-group  col-xs-6 col-sm-6 col-lg-3">
+      <div class="input-group">
+        <span class="input-group-addon">Currently Selected tab:</span>
+        <input type="text" class="form-control w-atr-tabName" disabled placeholder="Click a tab already!">
+      </div>
+    </div>
+  </div>
+</div>
+<ul class="w-navbar nav nav-tabs" role="tablist">
+  <li class="w-dwtab" data-dwtarget="description" role="presentation" class=""><a href="#" aria-controls="home" role="tab" data-toggle="tab">Description</a></li>
+  <li class="w-dwtab" data-dwtarget="asciiart" role="presentation"><a href="#" aria-controls="profile" role="tab" data-toggle="tab">Ascii Art</a></li>
+  <li class="w-dwtab" data-dwtarget="circle" role="presentation"><a href="#" aria-controls="messages" role="tab" data-toggle="tab">Circle</a></li>
+  <li class="w-dwtab" data-dwtarget="veganipsum" role="presentation"><a href="#" aria-controls="settings" role="tab" data-toggle="tab">Vegan Ipsum</a></li>
+</ul>
+
+<div class="w-navcontent container-fluid">
+  <div class="w-dwcontent panel" data-dwtarget="description">
+    <div class="panel-body">
+      <p>Here we introduce event binding with the options object</p>
+      <p>Choose a tab and watch the name appear in the disabled input element above. You can write your own function to do animations, or make other interesting things happen when a user clicks on a tab. </p>
+      <p><strong>Bonus:</strong> Notice <i>.showFirst</i> is also set. This is an easy way of selecting which tab to show first, and can save you from having to set the 'active' class on your panels and tabs in your html to choose which tab to show 'on load'.</p>
+      <pre class="w-exampleTabCode"></pre>
+    </div>
+  </div>
+  <div class="w-dwcontent panel" data-dwtarget="circle">
+    <div class="panel-body">
+      A nice green circle:
+      <svg id="circle" height="200" xmlns="http://www.w3.org/2000/svg">
+        <circle id="greencircle" cx="30" cy="30" r="30" fill="green" />
+      </svg>
+
+      <hr>
+      <address>Created by DKS. This is free code</address>
+    </div>
+  </div>
+  <div class="w-dwcontent panel" data-dwtarget="asciiart">
+    <div class="panel-body">
+        <pre>
+      .____    .__  _____        .__                                      .__
+      |    |   |__|/ ____\____   |__| ______ _____    _____ _____  _______|__| ____    ____
+      |    |   |  \   __\/ __ \  |  |/  ___/ \__  \  /     \\__  \ \___   /  |/    \  / ___\
+      |    |___|  ||  | \  ___/  |  |\___ \   / __ \|  Y Y  \/ __ \_/    /|  |   |  \/ /_/  &gt;
+      |_______ \__||__|  \___  &gt; |__/____  &gt; (____  /__|_|  (____  /_____ \__|___|  /\___  /
+      \/             \/          \/       \/      \/     \/      \/       \//_____/
+        </pre>
+    </div>
+  </div>
+  <div class="w-dwcontent panel" data-dwtarget="content without tab">
+    <div class="panel-body">
+        <pre>
+          This is tab content without a tab!
+        </pre>
+    </div>
+  </div>
+  <div class="w-dwcontent panel" data-dwtarget="veganipsum">
+    <div class="panel-body">
+      <p>
+        Fiddlehead pignut sierra leone bologi sweet potato or kumara cardoon, parsnip; fat hen, pignut pak choy cardoon. Spring Onion garbanzo water spinach celery, mooli manioc. Bamboo shoot prairie turnip garbanzo, american groundnut; swede chinese mallow; pigeon pea. Epazote cauliflower scallion asparagus collard greens water chestnut. Chinese cabbage florence fennel swede salsify.
+      </p><p>
+      Skirret jerusalem artichoke, polk eggplant winter melon. Burdock chinese cabbage burdock bamboo shoot melokhia?
+    </p>
+    </div>
+  </div>
+</div>
+</body>
+</html>

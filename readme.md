@@ -39,4 +39,5 @@ The Examples are a work in progress. Those with a !! at the beginning aren't don
 2. Uses Bootstrap tab styles to show compatibility & ease of use with layout systems.
 3. Here we let you add html for tabs dynamically and watch dwTabs handle them with grace
 4. We provide a select element and choose which tabs to show programatically
-5. !!A simple router example using links in a sidebar to change tabs;
+5. The options object and 'onShow' event binding
+6. !!A simple router example using links in a sidebar to change tabs;
