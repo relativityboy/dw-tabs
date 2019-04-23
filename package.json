@@ -1,6 +1,6 @@
 {
   "name": "dw-tabs",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A lightweight library for adding tabs to any page, With any framework.",
   "main": "index.js",
   "directories": {
@@ -13,9 +13,9 @@
   "license": "ISC",
   "devDependencies": {
     "bootstrap": "^3.3.6",
-    "gulp": "^3.9.1",
+    "gulp": "^4.0.1",
     "gulp-inject": "^4.0.0",
-    "gulp-sass": "^2.2.0",
-    "jquery": "^2.2"
+    "gulp-sass": "^4.0.2",
+    "jquery": "^3.4.0"
   }
 }
